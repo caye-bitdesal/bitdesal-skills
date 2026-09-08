@@ -1,0 +1,327 @@
+{
+  "slug": "vecindario",
+  "working_name": "Vecindario",
+  "date": "2026-09-08",
+  "status": "draft",
+  "gap_verdict": "partial gap",
+  "scores": {
+    "requirements": 3,
+    "competition": 2,
+    "monetization": 2,
+    "risks": 2,
+    "action_plan": 4,
+    "total": 2.6
+  },
+  "es": {
+    "working_name": "Vecindario",
+    "thesis": "Inquilinos y propietarios en bloques urbanos de España ya se prestan herramientas por el grupo de WhatsApp de la finca, con fricción, desconfianza y objetos que se pierden. Vecindario sería una app móvil (iOS y Android) por comunidad de vecinos: inventario compartido, reservas y reputación ligera, con un backend que aísla cada finca. El hueco no es que nadie lo haya intentado, sino una versión local, simple y por edificio frente a marketplaces de alquiler entre desconocidos.",
+    "idea": {
+      "problem": "Quien vive en un piso no quiere comprar un taladro que usa dos veces al año. El grupo de WhatsApp no tiene disponibilidad, depósito ni historial; prestarle algo a un vecino nuevo da miedo. Las apps de alquiler P2P asumen extraños, desplazamiento y comisión.",
+      "solution": "Un inventario cerrado al portal o la comunidad: alta de objetos, franja de reserva, recordatorio de devolución y un perfil mínimo de fiabilidad. Sin feed público ni matching a escala de ciudad en v1.",
+      "who_primary": "Residentes de fincas de 20-80 viviendas en ciudades españolas",
+      "who_secondary": "Presidentes de comunidad que quieren reducir compras duplicadas",
+      "who_not": "Alquiler profesional de maquinaria; campus universitarios (otro modelo de confianza)",
+      "why_now": "Los hábitos de segunda mano y usar en vez de poseer ya existen; WhatsApp es el apaño. No hay un incumbente español obvio por finca con buena UX móvil.",
+      "scope_in": [
+        "Una comunidad",
+        "Inventario",
+        "Reserva",
+        "Chat mínimo o enlace a WhatsApp",
+        "Push de te toca devolver"
+      ],
+      "scope_out": [
+        "Pagos",
+        "Depósitos",
+        "Varias fincas por usuario",
+        "Mapa de ciudad",
+        "IA"
+      ]
+    },
+    "requirements": {
+      "mobile": "Must-have (v1): Android + iOS; auth email/Google; lista de objetos; ficha; calendario de reserva; mis préstamos; notificaciones de solicitud y atraso; estados vacío y error de red. Later: iPad, cola offline, pagos, OCR de fotos, widgets.",
+      "backend": "Must-have (v1): tenant por community_id; users, items, bookings; auth; push (FCM/APNs); reglas de no solapar reservas; fotos en object storage; exportar y borrar cuenta. Later: pagos, moderación, analytics de producto, admin multi-finca.",
+      "cross_cutting": "Copy en ES primero; analytics mínimo (altas, objetos, préstamos completados); cuenta GDPR; revisión de stores (fotos de usuarios).",
+      "score_why": "Dos apps nativas, auth, push, fotos y aislamiento por tenant son un CRUD estándar, no un marketplace con pagos en v1."
+    },
+    "competition": {
+      "method": "Búsquedas: app prestar herramientas vecinos, library of things Spain, Peerby, Fat Llama, alquiler herramientas particulares app. Páginas de producto. Fecha: 2026-09-08.",
+      "competitors": [
+        {
+          "name": "Peerby",
+          "type": "direct",
+          "url": "https://www.peerby.com",
+          "what": "Préstamo y alquiler entre particulares por zona.",
+          "strengths": "Marca y liquidez en algunos mercados.",
+          "weaknesses": "No está pensado como esta finca; cold start de ciudad.",
+          "pricing": "Según mercado; modelo P2P.",
+          "relevance": "El análogo de producto más cercano, con otra frontera de confianza."
+        },
+        {
+          "name": "Fat Llama y marketplaces similares",
+          "type": "indirect",
+          "url": "",
+          "what": "Alquiler con seguro y comisión entre desconocidos.",
+          "strengths": "Pagos y narrativa de seguro.",
+          "weaknesses": "Exceso y caro para un taladro dos pisos más arriba.",
+          "pricing": "Comisión por alquiler.",
+          "relevance": "Lo que no somos."
+        },
+        {
+          "name": "WhatsApp de la comunidad",
+          "type": "status quo",
+          "url": "",
+          "what": "El canal real.",
+          "strengths": "Ya instalado, cero onboarding.",
+          "weaknesses": "Sin inventario, sin calendario, ruido.",
+          "pricing": "Gratis.",
+          "relevance": "El producto a batir en facilidad, no en features."
+        }
+      ],
+      "positioning": "Ganar en comunidad cerrada más calendario, no en oferta de ciudad. Si no conseguimos que un presidente o 8 vecinos listen 15 objetos, Peerby y WhatsApp ya cubren el trabajo.",
+      "gap_verdict_text": "Hay demanda del trabajo (conseguir un taladro sin comprarlo), pero el canal dominante es WhatsApp y los P2P de ciudad ya existen. Un producto por portal puede encajar si la distribución es la comunidad, no la store. No es un océano azul.",
+      "score_why": "Peerby y el grupo de WhatsApp ya hacen el trabajo; la apertura es solo este edificio, no una categoría vacía."
+    },
+    "monetization": {
+      "models": [
+        {
+          "name": "Cuota a la comunidad (B2B2C)",
+          "score": 3,
+          "who_pays": "La comunidad o el administrador (derrama).",
+          "how": "9-19 EUR/mes por finca; usuarios gratis.",
+          "short_term": "Un presidente puede aprobar un gasto pequeño.",
+          "long_term": "Techo bajo salvo multi-finca.",
+          "v1_fit": "later",
+          "why_score": "Hay pagador, pero el ARPU es mínimo y el ciclo es tipo venta."
+        },
+        {
+          "name": "Freemium + IAP finca Pro",
+          "score": 2,
+          "who_pays": "Un vecino entusiasta.",
+          "how": "Inventario limitado gratis; push y fotos extra de pago.",
+          "short_term": "Casi nadie paga por prestar un taladro.",
+          "long_term": "IAP de consumo contra un chat gratis.",
+          "v1_fit": "no",
+          "why_score": "Poca disposición a pagar frente a WhatsApp."
+        },
+        {
+          "name": "Take-rate o depósito",
+          "score": 2,
+          "who_pays": "Prestatario, comisión o fianza.",
+          "how": "Como Fat Llama: seguro y cobro por préstamo.",
+          "short_term": "Rompe el relato de es el vecino.",
+          "long_term": "Solo si sales del edificio y eres marketplace de ciudad.",
+          "v1_fit": "no",
+          "why_score": "Choca con la tesis del producto."
+        },
+        {
+          "name": "Publicidad",
+          "score": 1,
+          "who_pays": "Anunciantes.",
+          "how": "Banners en una app de 40 personas.",
+          "short_term": "Inventario publicitario nulo.",
+          "long_term": "Inventario publicitario nulo.",
+          "v1_fit": "no",
+          "why_score": "No hay audiencia."
+        }
+      ],
+      "recommended_v1": "No cobrar hasta que un edificio complete préstamos cada semana. Entonces probar una cuota de comunidad (~10 EUR/mes) con el presidente, no IAP de consumidor.",
+      "score_why": "La cuota de comunidad es plausible, pero el ARPU es pequeño y el status quo es gratis; no hay un camino fuerte a corto ni que se acumule a largo."
+    },
+    "risks": {
+      "technical": [
+        {"level": "Medium", "text": "Fotos, push y dos stores. Mitigación: BaaS o API fina al inicio."},
+        {"level": "Low", "text": "Escala: v1 es diminuta; importa más el aislamiento de tenant que el QPS."}
+      ],
+      "product": [
+        {"level": "High", "text": "Huevo-gallina dentro de cada edificio. Mitigación: sembrar 10 objetos con el presidente."},
+        {"level": "High", "text": "Nadie abre otra app frente a WhatsApp. Mitigación: deep links a WhatsApp en v1."}
+      ],
+      "market": [
+        {"level": "Medium", "text": "Peerby y marketplaces absorben a quien presta en serio."},
+        {"level": "High", "text": "El coste de cambio del grupo de chat es casi cero."}
+      ],
+      "legal": [
+        {"level": "Medium", "text": "Daño o pérdida de objetos: avisos en v1, sin seguro."},
+        {"level": "Medium", "text": "GDPR y fotos de interiores: retención y borrar cuenta."}
+      ],
+      "business": [
+        {"level": "High", "text": "No está claro quién paga."},
+        {"level": "Medium", "text": "El soporte de no me lo han devuelto no escala."}
+      ],
+      "score_why": "Huevo-gallina por edificio, inercia de WhatsApp, pagador poco claro y disputas por objetos son varios riesgos altos, no un problema de pulido."
+    },
+    "action_plan": {
+      "phase0": "10 conversaciones en 2 fincas reales. Éxito: al menos 4 personas listarían un objeto esta semana y el presidente reenviaría un enlace. Fracaso: lo hablamos por el grupo, sin dolor.",
+      "phase1": "Una comunidad piloto, inventario + reserva + push, sin pagos.",
+      "phase2": "Segunda finca; métrica de préstamos completados por semana; luego pulir iOS o waitlist.",
+      "next_14_days": [
+        "Entrevistar 8 vecinos y 1 presidente (última vez que necesitaron una herramienta).",
+        "Mapear 5 alternativas reales con URLs actualizadas (incl. locales ES).",
+        "Pretotipo: hoja compartida + grupo WA y medir 2 semanas.",
+        "Decidir kill o wedge (solo herramientas vs también libros y cables).",
+        "Solo si hay señal: sketch de 4 pantallas y modelo community/item/booking."
+      ],
+      "score_why": "Un v1 fino (una comunidad, inventario, reserva, push, sin pagos) son semanas para un equipo pequeño después de validar, no un build de años."
+    },
+    "open_questions": [
+      "¿El administrador de fincas es el canal de distribución?",
+      "¿v1 permite comunidades abiertas (amigos) o solo un código de portal?"
+    ]
+  },
+  "en": {
+    "working_name": "Vecindario",
+    "thesis": "Tenants and owners in urban apartment buildings in Spain already lend tools via the building WhatsApp group, with friction, distrust, and items that go missing. Vecindario would be a mobile app (iOS and Android) per residents' community: shared inventory, bookings, and light reputation, with a backend that isolates each building. The gap is not that nobody has tried this; it is a local, simple, per-building version versus rental marketplaces for strangers.",
+    "idea": {
+      "problem": "Someone in a flat does not want to buy a drill they use twice a year. The WhatsApp group has no availability, deposit, or history; lending to a new neighbour feels risky. P2P rental apps assume strangers, travel, and a commission.",
+      "solution": "A closed inventory for the portal or community: list items, book a slot, return reminder, and a minimal reliability profile. No public feed and no city-wide matching in v1.",
+      "who_primary": "Residents of 20-80 unit buildings in Spanish cities",
+      "who_secondary": "Community presidents who want fewer duplicate purchases",
+      "who_not": "Professional equipment rental; university campuses (different trust model)",
+      "why_now": "Second-hand and use-instead-of-own habits already exist; WhatsApp is the workaround. There is no obvious Spanish per-building incumbent with good mobile UX.",
+      "scope_in": [
+        "One community",
+        "Inventory",
+        "Booking",
+        "Minimal chat or WhatsApp deep link",
+        "Push for time to return"
+      ],
+      "scope_out": [
+        "Payments",
+        "Deposits",
+        "Multiple buildings per user",
+        "City map",
+        "AI"
+      ]
+    },
+    "requirements": {
+      "mobile": "Must-have (v1): Android + iOS; email/Google auth; item list; item detail; booking calendar; my loans; request and overdue notifications; empty and network-error states. Later: iPad, offline queue, payments, photo OCR, widgets.",
+      "backend": "Must-have (v1): tenant per community_id; users, items, bookings; auth; push (FCM/APNs); no overlapping bookings; photos in object storage; export/delete account. Later: payments, moderation, product analytics, multi-building admin.",
+      "cross_cutting": "Spanish copy first; minimal analytics (signups, items, completed loans); GDPR account; store review for user photos.",
+      "score_why": "Two native apps, auth, push, photos, and tenant isolation are standard CRUD, not a payments marketplace in v1."
+    },
+    "competition": {
+      "method": "Queries: neighbour tool lending app, library of things Spain, Peerby, Fat Llama, peer tool rental app. Fetched vendor pages. Date: 2026-09-08.",
+      "competitors": [
+        {
+          "name": "Peerby",
+          "type": "direct",
+          "url": "https://www.peerby.com",
+          "what": "Peer lending/rental by area.",
+          "strengths": "Brand and liquidity in some markets.",
+          "weaknesses": "Not designed as this building; city-scale cold start.",
+          "pricing": "Market-dependent P2P model.",
+          "relevance": "Closest product analog; different trust boundary."
+        },
+        {
+          "name": "Fat Llama and similar marketplaces",
+          "type": "indirect",
+          "url": "",
+          "what": "Rental with insurance and commission among strangers.",
+          "strengths": "Payments and insurance narrative.",
+          "weaknesses": "Overkill and pricey for a drill two floors up.",
+          "pricing": "Take-rate per rental.",
+          "relevance": "What we are not."
+        },
+        {
+          "name": "Building WhatsApp group",
+          "type": "status quo",
+          "url": "",
+          "what": "The real channel.",
+          "strengths": "Already installed, zero onboarding.",
+          "weaknesses": "No inventory, no calendar, noise.",
+          "pricing": "Free.",
+          "relevance": "The product to beat on ease, not on features."
+        }
+      ],
+      "positioning": "Win on closed community plus calendar, not city-wide supply. If we cannot get a president or eight neighbours to list 15 items, Peerby and WhatsApp already cover the job.",
+      "gap_verdict_text": "Demand for the job (get a drill without buying one) exists, but WhatsApp is the dominant channel and city-wide P2P already exists. A per-portal product can fit if distribution is the community, not the store. This is not a blue ocean.",
+      "score_why": "Peerby-class P2P plus the WhatsApp group already do the job; the opening is only this building, not an empty category."
+    },
+    "monetization": {
+      "models": [
+        {
+          "name": "Community fee (B2B2C)",
+          "score": 3,
+          "who_pays": "The community or administrator (shared expense).",
+          "how": "9-19 EUR/month per building; users free.",
+          "short_term": "A president can approve a small expense.",
+          "long_term": "Low ceiling unless multi-building.",
+          "v1_fit": "later",
+          "why_score": "A payer exists, but ARPU is tiny and the motion is sales-like."
+        },
+        {
+          "name": "Freemium + IAP building Pro",
+          "score": 2,
+          "who_pays": "An enthusiastic neighbour.",
+          "how": "Limited inventory free; extra push and photos paid.",
+          "short_term": "Almost nobody pays to lend a drill.",
+          "long_term": "Consumer IAP against a free chat alternative.",
+          "v1_fit": "no",
+          "why_score": "Weak willingness to pay versus WhatsApp."
+        },
+        {
+          "name": "Take-rate or deposit",
+          "score": 2,
+          "who_pays": "Borrower, commission or deposit.",
+          "how": "Like Fat Llama: insurance and charge per loan.",
+          "short_term": "Kills the it is just the neighbour pitch.",
+          "long_term": "Only if you leave the building and become a city marketplace.",
+          "v1_fit": "no",
+          "why_score": "Fights the product thesis."
+        },
+        {
+          "name": "Ads",
+          "score": 1,
+          "who_pays": "Advertisers.",
+          "how": "Banners in a 40-person building app.",
+          "short_term": "No ad inventory.",
+          "long_term": "No ad inventory.",
+          "v1_fit": "no",
+          "why_score": "No audience."
+        }
+      ],
+      "recommended_v1": "Do not charge until one building completes loans weekly. Then test a community fee (~10 EUR/month) with the president — not consumer IAP.",
+      "score_why": "A community fee is plausible, but ARPU is small and the status quo is free; no strong short-term or compounding long-term path."
+    },
+    "risks": {
+      "technical": [
+        {"level": "Medium", "text": "Photos, push, and two stores. Mitigation: BaaS or a thin API first."},
+        {"level": "Low", "text": "Scale: v1 is tiny; tenant isolation matters more than QPS."}
+      ],
+      "product": [
+        {"level": "High", "text": "Chicken-egg inside each building. Mitigation: seed 10 items with the president."},
+        {"level": "High", "text": "Nobody opens another app versus WhatsApp. Mitigation: WhatsApp deep links in v1."}
+      ],
+      "market": [
+        {"level": "Medium", "text": "Peerby and marketplaces absorb serious lenders."},
+        {"level": "High", "text": "Switching cost of the existing chat group is near zero."}
+      ],
+      "legal": [
+        {"level": "Medium", "text": "Damage or loss of items: disclaimers in v1, no insurance."},
+        {"level": "Medium", "text": "GDPR and indoor photos: retention and delete account."}
+      ],
+      "business": [
+        {"level": "High", "text": "Unclear who pays."},
+        {"level": "Medium", "text": "Support for they did not return it does not scale."}
+      ],
+      "score_why": "Per-building chicken-egg, WhatsApp inertia, unclear payer, and object-loss disputes are several High/Medium killers, not a polish problem."
+    },
+    "action_plan": {
+      "phase0": "10 conversations in 2 real buildings. Success: at least 4 people would list an item this week and the president would forward a link. Failure: we will talk about it in the group, with no pain.",
+      "phase1": "One pilot community, inventory + booking + push, no payments.",
+      "phase2": "Second building; completed loans per week; then iOS polish or waitlist.",
+      "next_14_days": [
+        "Interview 8 neighbours and 1 president (last time they needed a tool).",
+        "Map 5 real alternatives with current URLs (including local ES).",
+        "Pretotype: shared sheet + WA group and measure 2 weeks.",
+        "Decide kill or wedge (tools only vs books and cables too).",
+        "Only if there is signal: sketch 4 screens and community/item/booking model."
+      ],
+      "score_why": "A thin v1 (one community, inventory, booking, push, no payments) is weeks for a small team after validation, not a multi-year build."
+    },
+    "open_questions": [
+      "Is the building administrator the distribution channel?",
+      "Does v1 allow open communities (friends) or only a portal code?"
+    ]
+  }
+}
