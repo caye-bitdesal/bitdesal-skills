@@ -1,12 +1,18 @@
 ---
 name: bitdesal-create-review
-description: Creates a GitHub Actions AI code review workflow and ai_review.py script for a named Android project. Use when the user runs /bitdesal-create-review with a project name or asks to add the BitDesal AI PR review setup.
+description: >-
+  Legacy — creates only the BitDesal AI code review GitHub Action for Android
+  projects. Prefer bitdesal-create-ci for CI + review. Use when the user
+  explicitly runs /bitdesal-create-review.
 disable-model-invocation: true
 ---
 
 # BitDesal Create Review
 
-Use this skill to add the BitDesal AI PR review setup to a repository.
+**Legacy:** for new projects prefer [bitdesal-create-ci](../bitdesal-create-ci/), which
+adds CI and stack-specific AI review together.
+
+Use this skill to add **only** the BitDesal AI PR review setup to a repository.
 
 ## Required Input
 

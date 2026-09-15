@@ -75,6 +75,8 @@ El agente leerá `SKILL.md` y seguirá el flujo definido.
 |-------|-------------|--------|--------|----------|
 | [add-project-case-study](./add-project-case-study/) | Crea una página de caso de estudio al estilo Kivra/Yössä (`/projects/{slug}`) y añade la tarjeta del proyecto en `/projects`. Incluye i18n (es/en/fi), assets y variante live o legacy. | raíz del repo | — | [bitdesal-web](https://github.com/caye-bitdesal/bitdesal-web) |
 | [bitdesal-draft-idea](./cursor/bitdesal-draft-idea/) | Convierte unas líneas de idea en briefs PDF (ES y EN): requisitos, competencia, monetización, riesgos, plan de acción, puntuaciones 1–5 y página de descarga. | [cursor/](./cursor/bitdesal-draft-idea/) | [claude/](./claude/bitdesal-draft-idea/) | Cualquier repo (`ideas/<slug>/`) |
+| [bitdesal-create-ci](./cursor/bitdesal-create-ci/) | Añade GitHub Actions de CI y revisión de código con IA (Android, KMP o Ktor server). Sin workflow de release. | [cursor/](./cursor/bitdesal-create-ci/) | [claude/](./claude/bitdesal-create-ci/) | Cualquier repo Kotlin con Gradle |
+| [bitdesal-create-review](./bitdesal-create-review/) | *(Legacy)* Solo revisión de código con IA para apps Android. Preferir `bitdesal-create-ci` para CI + review. | raíz del repo | — | Cualquier repo Android |
 
 ## Contribuir
 
