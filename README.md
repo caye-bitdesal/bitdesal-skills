@@ -77,6 +77,8 @@ El agente leerá `SKILL.md` y seguirá el flujo definido.
 | [bitdesal-draft-idea](./cursor/bitdesal-draft-idea/) | Convierte unas líneas de idea en briefs PDF (ES y EN): requisitos, competencia, monetización, riesgos, plan de acción, puntuaciones 1–5 y página de descarga. | [cursor/](./cursor/bitdesal-draft-idea/) | [claude/](./claude/bitdesal-draft-idea/) | Cualquier repo (`ideas/<slug>/`) |
 | [bitdesal-create-ci](./cursor/bitdesal-create-ci/) | Añade GitHub Actions de CI y revisión de código con IA (Android, KMP o Ktor server). Sin workflow de release. | [cursor/](./cursor/bitdesal-create-ci/) | [claude/](./claude/bitdesal-create-ci/) | Cualquier repo Kotlin con Gradle |
 | [bitdesal-create-review](./bitdesal-create-review/) | *(Legacy)* Solo revisión de código con IA para apps Android. Preferir `bitdesal-create-ci` para CI + review. | raíz del repo | — | Cualquier repo Android |
+| [bitdesal-kmp-use-case-spec](./cursor/bitdesal-kmp-use-case-spec/) | Analiza ViewModels, repositorios, Composables y READMEs del proyecto; genera spec por casos de uso (`analyze-all` para todo el repo), cobertura vs huecos, tests deduplicados y diagramas Mermaid. | [cursor/](./cursor/bitdesal-kmp-use-case-spec/) | [claude/](./claude/bitdesal-kmp-use-case-spec/) | Proyectos KMP (`specs/kmp-use-cases/…`) |
+| [bitdesal-review-last-commit](./cursor/bitdesal-review-last-commit/) | Revisa el último commit local (KMP: Kotlin, Gradle, SQLDelight, config) con Claude Fable; seguimiento de hallazgos abiertos por rama; hook tras `git commit` o `/bitdesal-review-last-commit`. | [cursor/](./cursor/bitdesal-review-last-commit/) | — | Proyectos KMP con skill + hook instalados |
 
 ## Contribuir
 
