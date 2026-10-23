@@ -48,6 +48,10 @@ Options:
 
 Add **`GEMINI_API_KEY`** in GitHub → Settings → Secrets and variables → Actions.
 
+## Additional workflow optimization
+
+After an AI PR review. Collect the reported issues, paste it into [bitdesal-evaluate](../bitdesal-evaluate/) skill and use a different LLM than Gemini in order to decide which ones are valid and worth fixing, then it implements only those with the smallest correct diff — one git commit per resolved issue.
+
 ## See also
 
 - [SKILL.md](./SKILL.md) — agent workflow
