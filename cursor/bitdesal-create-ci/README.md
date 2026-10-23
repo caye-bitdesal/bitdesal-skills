@@ -27,7 +27,7 @@ From the project root:
 
 ```bash
 python3 .cursor/skills/bitdesal-create-ci/scripts/create_github_actions.py \
-  --project-name "TaskIt" \
+  --project-name "MyKmpProject" \
   --type kmp
 ```
 
