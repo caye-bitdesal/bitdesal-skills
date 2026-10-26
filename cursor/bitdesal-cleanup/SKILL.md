@@ -11,7 +11,7 @@ disable-model-invocation: true
 
 Systematic cleanup for **Weel** (`picalandroid`): report internally connected but unreachable code, then delete **high-confidence** chains.
 
-Read [AGENTS.md](../../AGENTS.md) for project constraints. Minimize scope; one cleanup theme per commit/PR.
+Read `AGENTS.md` at the project root for project constraints. Minimize scope; one cleanup theme per commit/PR.
 
 ## Phase 1 — Analysis (always run first)
 

@@ -18,7 +18,7 @@ No release, signing, or Play Store workflows.
 Copy to your project:
 
 ```bash
-cp -r cursor/bitdesal-create-ci /path/to/project/.cursor/skills/
+cp -r claude/bitdesal-create-ci /path/to/project/.claude/skills/
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ cp -r cursor/bitdesal-create-ci /path/to/project/.cursor/skills/
 From the project root:
 
 ```bash
-python3 .cursor/skills/bitdesal-create-ci/scripts/create_github_actions.py \
+python3 .claude/skills/bitdesal-create-ci/scripts/create_github_actions.py \
   --project-name "TaskIt" \
   --type kmp
 ```
@@ -52,4 +52,4 @@ Add **`GEMINI_API_KEY`** in GitHub → Settings → Secrets and variables → Ac
 
 - [SKILL.md](./SKILL.md) — agent workflow
 - [reference.md](./reference.md) — customization guide
-- [bitdesal-create-review](../bitdesal-create-review/) — AI review only (legacy)
+- [bitdesal-create-review](../../cursor/bitdesal-create-review/) — AI review only (legacy, Cursor variant)

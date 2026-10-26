@@ -60,7 +60,7 @@ If the repo layout does not match the template, note what to change in
 From the **target project root** (where `.github/` should be created):
 
 ```bash
-python3 .cursor/skills/bitdesal-create-ci/scripts/create_github_actions.py \
+python3 .claude/skills/bitdesal-create-ci/scripts/create_github_actions.py \
   --project-name "ProjectName" \
   --type kmp
 ```
