@@ -27,7 +27,7 @@ From the project root:
 
 ```bash
 python3 .cursor/skills/bitdesal-create-ci/scripts/create_github_actions.py \
-  --project-name "TaskIt" \
+  --project-name "MyKmpProject" \
   --type kmp
 ```
 
@@ -47,6 +47,10 @@ Options:
 ## Required secret
 
 Add **`GEMINI_API_KEY`** in GitHub → Settings → Secrets and variables → Actions.
+
+## Additional workflow optimization
+
+After the AI review, paste the reported issues into the [bitdesal-evaluate](../bitdesal-evaluate/) skill and run it with a different LLM than Gemini. It decides which issues are valid and worth fixing, implements only those with the smallest correct diff, and creates one git commit per resolved issue.
 
 ## See also
 

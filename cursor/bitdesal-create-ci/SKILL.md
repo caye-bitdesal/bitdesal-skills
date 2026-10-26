@@ -21,9 +21,9 @@ This skill does **not** add release or signing workflows.
 Examples:
 
 ```text
-/bitdesal-create-ci TaskIt --type kmp
-/bitdesal-create-ci Pical --type android
-/bitdesal-create-ci MyApi --type server
+/bitdesal-create-ci MyKmpProject --type kmp
+/bitdesal-create-ci MyAndroidProject --type android
+/bitdesal-create-ci MyServerProject --type server
 ```
 
 Optional flags (pass them to the script):
