@@ -52,4 +52,4 @@ Add **`GEMINI_API_KEY`** in GitHub → Settings → Secrets and variables → Ac
 
 - [SKILL.md](./SKILL.md) — agent workflow
 - [reference.md](./reference.md) — customization guide
-- [bitdesal-create-review](../../cursor/bitdesal-create-review/) — AI review only (legacy, Cursor variant)
+- [bitdesal-create-review](../bitdesal-create-review/) — AI review only (legacy)

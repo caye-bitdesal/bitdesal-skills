@@ -17,7 +17,8 @@ errors, empty states, etc.), which **tests to add** (relevant only — no redund
 variations), and **diagrams** per use case.
 
 This skill **reads the codebase**; it does not interview for greenfield features.
-For interview-driven feature specs, use `bitdesal-create-spec` instead.
+For interview-driven KMP feature specs, use `bitdesal-create-kmp-spec` instead.
+For Android-only interview specs, use `bitdesal-create-spec`.
 
 ## Invocation
 

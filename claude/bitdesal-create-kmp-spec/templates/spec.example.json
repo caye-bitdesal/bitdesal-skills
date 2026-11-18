@@ -1,0 +1,197 @@
+{
+  "feature_name": "Event Attendance",
+  "feature_slug": "event-attendance",
+  "project_profile": "tabala",
+  "parent_package": "com.muixeranga.tabala.feature.attendance",
+  "scaffold": "AttendanceScaffold",
+  "summary": "Management screen to mark who attended an event. Shared Compose UI on **Android, desktop, web, and iOS**, backed by `:server` SQLite.",
+  "overview": "The Event Attendance screen is opened from an event detail. Editors with the right Firebase role can toggle attendance per member. The same Composable in `:app:shared` `commonMain` is hosted by each thin app module.\n\nGoals:\n- List members expected at the event.\n- Toggle attendance with optimistic UI.\n- Show loading, empty, and error states shared across clients.",
+  "client_scope": {
+    "preset": "server_all_compose",
+    "server": true,
+    "android": true,
+    "desktop": true,
+    "web": true,
+    "ios": true,
+    "external_public_api": false
+  },
+  "modules": {
+    "core": ":core",
+    "server": ":server",
+    "shared": ":app:shared",
+    "androidApp": ":app:androidApp",
+    "desktopApp": ":app:desktopApp",
+    "webApp": ":app:webApp",
+    "iosApp": ":app:iosApp"
+  },
+  "shared_ui_policy": "Prefer `commonMain` in `:app:shared`. Thin app modules only host the screen. `iosMain` / `androidMain` only if Firebase actuals need a change.",
+  "out_of_scope": "- Public Astro site does not show attendance.\n- No new event CRUD in this feature.",
+  "external_systems": [],
+  "auth": {
+    "client": "Firebase ID token on all attendance routes",
+    "server": "Verify token; require editor or admin role; no passwords stored"
+  },
+  "data_model_refs": [
+    "backend/data-model/data-model.json",
+    "server/src/main/sqldelight/migrations/V1__initial_schema.sqm"
+  ],
+  "images": [
+    { "kind": "ios", "caption": "iOS parity reference", "path": "images/ios-attendance.png" },
+    { "kind": "mockup", "caption": "Shared Compose mockup", "path": "images/mockup.png" }
+  ],
+  "components": [
+    {
+      "name": "AttendanceDto",
+      "location": "core/src/commonMain/kotlin/.../AttendanceDto.kt",
+      "decision": "create",
+      "usage": "JSON body for list and toggle.",
+      "notes": "Align with `attendance` table: eventId, memberId, present, updatedAt.",
+      "layer": "core",
+      "module": ":core",
+      "sourceSet": "commonMain",
+      "clients": ["server", "android", "desktop", "web", "ios"]
+    },
+    {
+      "name": "AttendanceRepository",
+      "location": "app/shared/src/commonMain/kotlin/.../AttendanceRepository.kt",
+      "decision": "create",
+      "usage": "Ktor Client calls for list and toggle.",
+      "notes": "No Gradle dependency on :server.",
+      "layer": "repository",
+      "module": ":app:shared",
+      "sourceSet": "commonMain",
+      "clients": ["android", "desktop", "web", "ios"]
+    },
+    {
+      "name": "AttendanceViewModel",
+      "location": "app/shared/src/commonMain/kotlin/.../AttendanceViewModel.kt",
+      "decision": "create",
+      "usage": "UiState + toggle intent.",
+      "notes": "Optimistic toggle; revert on error.",
+      "layer": "viewmodel",
+      "module": ":app:shared",
+      "sourceSet": "commonMain",
+      "clients": ["android", "desktop", "web", "ios"]
+    },
+    {
+      "name": "AttendanceRow",
+      "location": "app/shared/src/commonMain/kotlin/.../ui/AttendanceRow.kt",
+      "decision": "create",
+      "usage": "Each member row: name, role chip, checkbox.",
+      "notes": "New shared row; reuse design-system checkbox.",
+      "layer": "ui",
+      "module": ":app:shared",
+      "sourceSet": "commonMain",
+      "clients": ["android", "desktop", "web", "ios"]
+    },
+    {
+      "name": "AttendanceEmptyState",
+      "location": "app/shared/src/commonMain/kotlin/.../ui/AttendanceEmptyState.kt",
+      "decision": "create",
+      "usage": "Shown when the event has no members.",
+      "notes": "Illustration + short label.",
+      "layer": "ui",
+      "module": ":app:shared",
+      "sourceSet": "commonMain",
+      "clients": ["android", "desktop", "web", "ios"]
+    }
+  ],
+  "structure": "The screen is a `Column` inside `AttendanceScaffold`:\n\n1. **Top bar** — event title and date (read-only).\n2. **Member list** — `weight(1f)` `LazyColumn` of `AttendanceRow`.\n\nSame layout on Android, desktop, web, and iOS.",
+  "sections": [
+    {
+      "title": "Top bar",
+      "description": "Scaffold top bar with the event name and ISO date. Back navigates to event detail.",
+      "behavior": "No edit actions. Loading uses a linear indicator under the bar.",
+      "components": [],
+      "clients": ["android", "desktop", "web", "ios"]
+    },
+    {
+      "title": "Member list",
+      "description": "A `LazyColumn` of `AttendanceRow`: display name, optional role chip, trailing checkbox bound to `present`.",
+      "behavior": "Checkbox toggles attendance (optimistic). Row tap does nothing else. Empty list shows `AttendanceEmptyState`. Error banner with retry.",
+      "components": ["AttendanceRow", "AttendanceEmptyState"],
+      "clients": ["android", "desktop", "web", "ios"]
+    }
+  ],
+  "endpoints": [
+    {
+      "name": "List attendance",
+      "method": "GET",
+      "path": "/api/events/{id}/attendance",
+      "notes": "Called on screen load; drives the list.",
+      "implemented_on": "server",
+      "consumed_by": ["android", "desktop", "web", "ios"],
+      "auth": "firebase"
+    },
+    {
+      "name": "Toggle attendance",
+      "method": "PUT",
+      "path": "/api/events/{id}/attendance/{memberId}",
+      "notes": "Body `{ \"present\": true }`. Optimistic UI on the client.",
+      "implemented_on": "server",
+      "consumed_by": ["android", "desktop", "web", "ios"],
+      "auth": "firebase"
+    }
+  ],
+  "persistence": "Source of truth is the `attendance` table in **SQLite** on `:server` (SQLDelight). Clients do not cache locally; they hold ViewModel state for the session and refetch on retry.",
+  "tasks": [
+    {
+      "id": "T1",
+      "title": "Add AttendanceDto in :core",
+      "spec": "Add `@Serializable` `AttendanceDto` and toggle request type in `:core` `commonMain`, aligned with the `attendance` table (eventId, memberId, present, updatedAt ISO 8601).",
+      "acceptance_criteria": [
+        "Types compile in :core",
+        "Field names match the JSON the server will emit"
+      ],
+      "dependencies": [],
+      "components": ["AttendanceDto"],
+      "target": "core",
+      "module": ":core",
+      "clients_affected": ["server", "android", "desktop", "web", "ios"]
+    },
+    {
+      "id": "T2",
+      "title": "Server routes for list and toggle",
+      "spec": "Add Ktor GET/PUT under `/api/events/{id}/attendance` using existing SQLDelight `attendance` queries. Require Firebase editor/admin. Return `:core` DTOs.",
+      "acceptance_criteria": [
+        "GET returns the member list with present flags",
+        "PUT updates one row and returns the updated DTO",
+        "Missing role returns 403"
+      ],
+      "dependencies": ["T1"],
+      "components": ["AttendanceDto"],
+      "target": "server",
+      "module": ":server",
+      "clients_affected": ["server"]
+    },
+    {
+      "id": "T3",
+      "title": "Shared repository",
+      "spec": "Add `AttendanceRepository` in `:app:shared` `commonMain` using Ktor Client + `:core` types. No dependency on `:server`.",
+      "acceptance_criteria": [
+        "list(eventId) maps JSON to AttendanceDto list",
+        "toggle(eventId, memberId, present) sends PUT"
+      ],
+      "dependencies": ["T1"],
+      "components": ["AttendanceRepository"],
+      "target": "shared",
+      "module": ":app:shared",
+      "clients_affected": ["android", "desktop", "web", "ios"]
+    },
+    {
+      "id": "T4",
+      "title": "ViewModel and shared screen",
+      "spec": "Add `AttendanceViewModel` and `AttendanceScreen` in `commonMain`: scaffold, list, empty/error, optimistic checkbox. Register navigation + Koin. Thin app modules should already host shared UI — no per-platform screen copies.",
+      "acceptance_criteria": [
+        "Navigating to the attendance route shows the list",
+        "Toggle updates UI immediately and reverts on error",
+        "Empty and error states render"
+      ],
+      "dependencies": ["T3"],
+      "components": ["AttendanceViewModel", "AttendanceRow", "AttendanceEmptyState"],
+      "target": "shared",
+      "module": ":app:shared",
+      "clients_affected": ["android", "desktop", "web", "ios"]
+    }
+  ]
+}

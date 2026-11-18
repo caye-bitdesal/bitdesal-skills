@@ -27,10 +27,7 @@ anides `cursor/` o `claude/` *dentro* de la skill.
 | Carpeta | Skills |
 |---------|--------|
 | **cursor/** | `add-project-case-study`, `bitdesal-cleanup`, `bitdesal-create-ci`, `bitdesal-create-kmp-spec`, `bitdesal-create-review`, `bitdesal-create-spec`, `bitdesal-create-ticket`, `bitdesal-draft-idea`, `bitdesal-evaluate`, `bitdesal-kmp-use-case-spec`, `bitdesal-review-last-commit` |
-| **claude/** | `bitdesal-create-ci`, `bitdesal-draft-idea`, `bitdesal-kmp-use-case-spec` |
-
-Si una skill solo aparece en `cursor/`, hoy no hay variante para Claude Code en
-este repo (puedes copiar la de Cursor y adaptar rutas `.cursor/` → `.claude/` si lo necesitas).
+| **claude/** | `add-project-case-study`, `bitdesal-cleanup`, `bitdesal-create-ci`, `bitdesal-create-kmp-spec`, `bitdesal-create-review`, `bitdesal-create-spec`, `bitdesal-create-ticket`, `bitdesal-draft-idea`, `bitdesal-evaluate`, `bitdesal-kmp-use-case-spec`, `bitdesal-review-last-commit` |
 
 ## Instalación
 
@@ -79,17 +76,17 @@ El agente leerá `SKILL.md` y seguirá el flujo definido.
 
 | Skill | Descripción | Cursor | Claude | Contexto |
 |-------|-------------|--------|--------|----------|
-| [add-project-case-study](./cursor/add-project-case-study/) | Crea una página de caso de estudio al estilo Kivra/Yössä (`/projects/{slug}`) y añade la tarjeta del proyecto en `/projects`. Incluye i18n (es/en/fi), assets y variante live o legacy. | [cursor/](./cursor/add-project-case-study/) | — | [bitdesal-web](https://github.com/caye-bitdesal/bitdesal-web) |
-| [bitdesal-cleanup](./cursor/bitdesal-cleanup/) | Encuentra y elimina código Kotlin/Android muerto en Weel (cadenas inalcanzables, recursos sin uso). | [cursor/](./cursor/bitdesal-cleanup/) | — | Weel (`picalandroid`) |
+| [add-project-case-study](./cursor/add-project-case-study/) | Crea una página de caso de estudio al estilo Kivra/Yössä (`/projects/{slug}`) y añade la tarjeta del proyecto en `/projects`. Incluye i18n (es/en/fi), assets y variante live o legacy. | [cursor/](./cursor/add-project-case-study/) | [claude/](./claude/add-project-case-study/) | [bitdesal-web](https://github.com/caye-bitdesal/bitdesal-web) |
+| [bitdesal-cleanup](./cursor/bitdesal-cleanup/) | Encuentra y elimina código Kotlin/Android muerto en Weel (cadenas inalcanzables, recursos sin uso). | [cursor/](./cursor/bitdesal-cleanup/) | [claude/](./claude/bitdesal-cleanup/) | Weel (`picalandroid`) |
 | [bitdesal-create-ci](./cursor/bitdesal-create-ci/) | Añade GitHub Actions de CI y revisión de código con IA (Android, KMP o Ktor server). Sin workflow de release. | [cursor/](./cursor/bitdesal-create-ci/) | [claude/](./claude/bitdesal-create-ci/) | Cualquier repo Kotlin con Gradle |
-| [bitdesal-create-kmp-spec](./cursor/bitdesal-create-kmp-spec/) | Entrevista una feature KMP (ámbito de clientes primero: server, Android, desktop, web, iOS), luego genera `spec.json` + HTML con tareas incrementales en `:core`, `:server` y `:app:shared`. | [cursor/](./cursor/bitdesal-create-kmp-spec/) | — | Proyectos KMP tipo Tabala (`specs/<slug>/`) |
-| [bitdesal-create-review](./cursor/bitdesal-create-review/) | *(Legacy)* Solo revisión de código con IA para apps Android. Preferir `bitdesal-create-ci` para CI + review. | [cursor/](./cursor/bitdesal-create-review/) | — | Cualquier repo Android |
-| [bitdesal-create-spec](./cursor/bitdesal-create-spec/) | Entrevista una feature (enfoque Android/UI), genera `spec.json` + HTML autocontenido con imágenes y tareas incrementales. | [cursor/](./cursor/bitdesal-create-spec/) | — | Apps Android (`specs/<slug>/`) |
-| [bitdesal-create-ticket](./cursor/bitdesal-create-ticket/) | Redacta un issue de GitHub a partir de una descripción breve, aclara dudas y lo crea con `gh`. | [cursor/](./cursor/bitdesal-create-ticket/) | — | Cualquier repo con `gh` |
+| [bitdesal-create-kmp-spec](./cursor/bitdesal-create-kmp-spec/) | Entrevista una feature KMP (ámbito de clientes primero: server, Android, desktop, web, iOS), luego genera `spec.json` + HTML con tareas incrementales en `:core`, `:server` y `:app:shared`. | [cursor/](./cursor/bitdesal-create-kmp-spec/) | [claude/](./claude/bitdesal-create-kmp-spec/) | Proyectos KMP tipo Tabala (`specs/<slug>/`) |
+| [bitdesal-create-review](./cursor/bitdesal-create-review/) | *(Legacy)* Solo revisión de código con IA para apps Android. Preferir `bitdesal-create-ci` para CI + review. | [cursor/](./cursor/bitdesal-create-review/) | [claude/](./claude/bitdesal-create-review/) | Cualquier repo Android |
+| [bitdesal-create-spec](./cursor/bitdesal-create-spec/) | Entrevista una feature (enfoque Android/UI), genera `spec.json` + HTML autocontenido con imágenes y tareas incrementales. | [cursor/](./cursor/bitdesal-create-spec/) | [claude/](./claude/bitdesal-create-spec/) | Apps Android (`specs/<slug>/`) |
+| [bitdesal-create-ticket](./cursor/bitdesal-create-ticket/) | Redacta un issue de GitHub a partir de una descripción breve, aclara dudas y lo crea con `gh`. | [cursor/](./cursor/bitdesal-create-ticket/) | [claude/](./claude/bitdesal-create-ticket/) | Cualquier repo con `gh` |
 | [bitdesal-draft-idea](./cursor/bitdesal-draft-idea/) | Convierte unas líneas de idea en briefs PDF (ES y EN): requisitos, competencia, monetización, riesgos, plan de acción, puntuaciones 1–5 y página de descarga. | [cursor/](./cursor/bitdesal-draft-idea/) | [claude/](./claude/bitdesal-draft-idea/) | Cualquier repo (`ideas/<slug>/`) |
-| [bitdesal-evaluate](./cursor/bitdesal-evaluate/) | Triaje de hallazgos del bot de review en PR: validar, aplicar fixes mínimos, un commit por issue resuelto. | [cursor/](./cursor/bitdesal-evaluate/) | — | Tras `bitdesal-create-ci` / review en PR |
+| [bitdesal-evaluate](./cursor/bitdesal-evaluate/) | Triaje de hallazgos del bot de review en PR: validar, aplicar fixes mínimos, un commit por issue resuelto. | [cursor/](./cursor/bitdesal-evaluate/) | [claude/](./claude/bitdesal-evaluate/) | Tras `bitdesal-create-ci` / review en PR |
 | [bitdesal-kmp-use-case-spec](./cursor/bitdesal-kmp-use-case-spec/) | Analiza ViewModels, repositorios, Composables y READMEs del proyecto; genera spec por casos de uso (`analyze-all` para todo el repo), cobertura vs huecos, tests deduplicados y diagramas Mermaid. | [cursor/](./cursor/bitdesal-kmp-use-case-spec/) | [claude/](./claude/bitdesal-kmp-use-case-spec/) | Proyectos KMP (`specs/kmp-use-cases/…`) |
-| [bitdesal-review-last-commit](./cursor/bitdesal-review-last-commit/) | Revisa el último commit local (KMP: Kotlin, Gradle, SQLDelight, config) con Claude Fable; seguimiento de hallazgos abiertos por rama; hook tras `git commit` o `/bitdesal-review-last-commit`. | [cursor/](./cursor/bitdesal-review-last-commit/) | — | Proyectos KMP con skill + hook instalados |
+| [bitdesal-review-last-commit](./cursor/bitdesal-review-last-commit/) | Revisa el último commit local (KMP: Kotlin, Gradle, SQLDelight, config); seguimiento de hallazgos abiertos por rama; hook tras `git commit` o `/bitdesal-review-last-commit`. | [cursor/](./cursor/bitdesal-review-last-commit/) | [claude/](./claude/bitdesal-review-last-commit/) | Proyectos KMP con skill + hook instalados |
 
 ## Contribuir
 
